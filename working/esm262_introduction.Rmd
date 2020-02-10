@@ -1,0 +1,12 @@
+---
+title: "ESM 262 Introduction"
+author: "Chase Brewster"
+date: "2/10/2020"
+output: html_document
+---
+
+##Why I am taking this course:
+I am finishing up my focus in Environmnetal Data Science. I am hoping to continue practicing the skills I have already developed, as well as learn some new ones.
+
+##My data science background:
+My experience with data science began at Bren. I have taken ESM 206 and Advanced Data Analysis, as well as GIS and Advanced GIS. I have also taken Conservation Planning. My group project was related to fisheries and climate change, so I have spent the last year writing fisheries models in R, including functions and loops.
