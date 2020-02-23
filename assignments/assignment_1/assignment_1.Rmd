@@ -1,0 +1,65 @@
+---
+title: "Assignment 1"
+author: "Chase Brewster"
+date: "2/23/2020"
+output: html_document
+---
+
+The Drake Equation, developed in 1961 by Frank Drake, is a probabilistic argument used to estimate the number of active, communicative extraterrestrial civilizations in the Milky Way Galaxy. The equation was not proposed to accurately estimate the number of extraterrestrial civilizations, but rather to provide a framework for scientists to think about the varying factors that would influence the likelihood.
+
+The equation is as follows:
+
+Number of Intelligent Civilizations in the Galaxy = 
+  (The average rate of star formation in the galaxy) *
+    (The fraction of those stars that have planets) *
+      (The average number of planets that can potentially support life per star that has planets) *
+        (The fraction of planets that could support life actually develop life at some point) *
+          (The fraction of planets with life that develop intelligent life) *
+            (The fraction of intelligent life that develop technology to release detectable signals in space) *
+              (The length of time in which a civilization releases detectable signals in space)
+              
+
+Here, we are using the Drake Equation to explore how different theoretical values for each component affects the estimates of civilizations.
+
+While there are no fully agreed upon input values, this function applies two constant parameters. The fraction of stars that have planets is = 0.99, as it is now believed that all stars in the galaxy have planets, with very few exceptions. Also, the value for average number of planets that can support life is = 0.4, as there are approximately 40 billion planets in a habitable zone, and there are approximately 100 billion planets.
+
+1. Load necessary packages
+```{r}
+#install.packages("wesanderson")
+library(tidyverse)
+library(wesanderson)
+```
+
+2. Create the data inputs & set up data frame
+```{r}
+
+star_i <- runif(100, 1.5, 3) #believed star formation rate in the galaxy is estimated at 1.5 - 3 stars per year
+develop_i <- runif(100, 0, 1) #likelihood of developing life is between 0% and 100%
+intelligent_i <- runif(100, 0, 1) #likelihood of becoming intelligent is between 0% and 100%
+technology_i <- runif(100, 0, 1) #likelihood of communicating is between 0% and 100%
+time_i <- runif(100, 200, 1000) #length of time communication is between 200 and 1,000 years
+
+results  = data.frame(civilizations = rep(NA, 100), star = star_i, planets = 0.99, support = 0.4, intelligent = intelligent_i, technology = technology_i, time = time_i) #data frame creation
+
+```
+
+3. Run civilizations.R function and apply data inputs
+```{r}
+
+# function source: "./esm262_winter2020/assignments/assignment_1/civilizations.R
+
+results$civilizations = civilizations(star = star_i, planets = 0.99, support = 0.4, develop = develop_i, intelligent = intelligent_i, technology = technology_i, time = time_i) #using data inputs from above
+
+```
+
+4. Graph the results
+```{r}
+#to explore the results, change the "x" axis variable to see how the different values for that variable affect the overall outcomes of number of civilizations on the "y" axis (and the corresponding x axis label under "labs"), and change the "col" variable to further explore a third dimension's affects on the estimate outcome (and the legend title under scale_color_gradient)
+
+ggplot(results, aes(x = intelligent, y = civilizations, col = star)) +
+  geom_point() +
+  labs(y = "Estimated Number of Intelligent Extraterrestrial Civilizations", x = "Probability of Life Becoming Intelligent") +
+  theme_light() +
+  scale_color_gradientn(colours = rainbow(5), name  = "Star Formation Rate")
+```
+
